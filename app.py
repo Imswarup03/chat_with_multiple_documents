@@ -104,7 +104,6 @@ def main():
    user_question = st.text_input("Ask a question about your document")
 
    if user_question:
-       print("user_question",user_question)
        handle_userinput(user_question)
 
    with st.sidebar:
