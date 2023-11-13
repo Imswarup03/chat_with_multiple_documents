@@ -35,32 +35,32 @@ def get_text_chunks(raw_text):
     )
     chunks= text_splitter.split_text(raw_text)
     return chunks
-# def get_vector_store(text_chunks):
-#     embeddings=OpenAIEmbeddings()
-#     # embeddings=HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
-#     vectorstore=FAISS.from_texts(texts=text_chunks,embedding=embeddings)
-#     return vectorstore
-
 def get_vector_store(text_chunks):
-    embeddings = OpenAIEmbeddings()
-    vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
-
-    # Connect to Pinecone
-    pinecone.init(api_key="PINECONE_API_KEY", environment="YOUR_ENVIRONMENT")
-
-    # Create or retrieve the Pinecone index
-    index_name = "your_index_name"
-    if index_name not in pinecone.list_indexes():
-        pinecone.create_index(index_name)
-    index = pinecone.Index(index_name)
-
-    # Upsert the vector store into Pinecone
-    index.upsert(ids=range(len(text_chunks)), vectors=vectorstore.vectors)
-
-    # Close the connection to Pinecone
-    pinecone.deinit()
-
+    embeddings=OpenAIEmbeddings()
+    # embeddings=HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
+    vectorstore=FAISS.from_texts(texts=text_chunks,embedding=embeddings)
     return vectorstore
+
+# def get_vector_store(text_chunks):
+#     embeddings = OpenAIEmbeddings()
+#     vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
+
+#     # Connect to Pinecone
+#     pinecone.init(api_key="PINECONE_API_KEY", environment="YOUR_ENVIRONMENT")
+
+#     # Create or retrieve the Pinecone index
+#     index_name = "your_index_name"
+#     if index_name not in pinecone.list_indexes():
+#         pinecone.create_index(index_name)
+#     index = pinecone.Index(index_name)
+
+#     # Upsert the vector store into Pinecone
+#     index.upsert(ids=range(len(text_chunks)), vectors=vectorstore.vectors)
+
+#     # Close the connection to Pinecone
+#     pinecone.deinit()
+
+#     return vectorstore
 
 
 def get_conversation_chain(vectorstore):
